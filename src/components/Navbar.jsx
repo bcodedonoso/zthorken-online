@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { getAll } from '../data/db.js'
+import { useSesion } from '../context/sesion.js'
 
 const enlaces = [
   { to: '/', texto: 'Home' },
@@ -15,6 +16,12 @@ function Navbar({ totalCarrito = 0 }) {
   const [busqueda, setBusqueda] = useState('')
   const navigate = useNavigate()
   const categorias = getAll('categorias')
+  const { usuario, esAdmin, logout } = useSesion()
+
+  function cerrarSesion() {
+    logout()
+    navigate('/')
+  }
 
   function buscar(e) {
     e.preventDefault()
@@ -54,10 +61,20 @@ function Navbar({ totalCarrito = 0 }) {
                 <button className="btn btn-outline-success" type="submit">Buscar</button>
               </form>
 
-              <div className="d-flex gap-2">
-                <Link className="btn btn-outline-primary text-nowrap" to="/login">Iniciar sesión</Link>
-                <Link className="btn btn-primary text-nowrap" to="/registro">Crear cuenta</Link>
-              </div>
+              {usuario ? (
+                <div className="d-flex align-items-center gap-2">
+                  <span className="navbar-text text-nowrap">Hola, {usuario.nombre}</span>
+                  {esAdmin && <Link className="btn btn-outline-dark text-nowrap" to="/admin">Admin</Link>}
+                  <button className="btn btn-outline-danger text-nowrap" type="button" onClick={cerrarSesion}>
+                    Cerrar sesión
+                  </button>
+                </div>
+              ) : (
+                <div className="d-flex gap-2">
+                  <Link className="btn btn-outline-primary text-nowrap" to="/login">Iniciar sesión</Link>
+                  <Link className="btn btn-primary text-nowrap" to="/registro">Crear cuenta</Link>
+                </div>
+              )}
             </div>
 
             <div className="d-flex flex-column flex-xl-row align-items-xl-center justify-content-center gap-xl-3 pb-2">
