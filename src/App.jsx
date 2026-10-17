@@ -7,6 +7,7 @@ import Nosotros from './pages/Nosotros.jsx'
 import Contacto from './pages/Contacto.jsx'
 import Blogs from './pages/Blogs.jsx'
 import BlogDetalle from './pages/BlogDetalle.jsx'
+import AdminLayout from './components/AdminLayout.jsx'
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:id" element={<BlogDetalle />} />
       </Route>
+
+      <Route path="/admin" element={<AdminLayout />} />
     </Routes>
   )
 }
