@@ -11,6 +11,7 @@ import AdminLayout from './components/AdminLayout.jsx'
 import Dashboard from './pages/admin/Dashboard.jsx'
 import AdminProductos from './pages/admin/Productos.jsx'
 import ProductoForm from './pages/admin/ProductoForm.jsx'
+import ProductoDetalle from './pages/admin/ProductoDetalle.jsx'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="productos" element={<AdminProductos />} />
         <Route path="productos/criticos" element={<AdminProductos soloCriticos />} />
         <Route path="productos/nuevo" element={<ProductoForm />} />
+        <Route path="productos/:id" element={<ProductoDetalle />} />
         <Route path="productos/:id/editar" element={<ProductoForm />} />
       </Route>
     </Routes>
