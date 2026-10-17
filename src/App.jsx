@@ -5,6 +5,8 @@ import Login from './pages/Login.jsx'
 import Registro from './pages/Registro.jsx'
 import Nosotros from './pages/Nosotros.jsx'
 import Contacto from './pages/Contacto.jsx'
+import Blogs from './pages/Blogs.jsx'
+import BlogDetalle from './pages/BlogDetalle.jsx'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:id" element={<BlogDetalle />} />
       </Route>
     </Routes>
   )
