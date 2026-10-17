@@ -3,7 +3,7 @@
 
 const STORAGE_KEY = 'zthorken-db'
 
-const img = (texto) => `https://placehold.co/400x300?text=${encodeURIComponent(texto)}`
+export const img = (texto) => `https://placehold.co/400x300?text=${encodeURIComponent(texto)}`
 
 const SEED = {
   categorias: [
