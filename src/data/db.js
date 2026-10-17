@@ -51,12 +51,14 @@ const SEED = {
     { id: 1, titulo: '¿Notebook o PC de escritorio?', resumen: 'Te ayudamos a elegir el equipo ideal.', contenido: 'Si necesitas movilidad, un notebook es la mejor opción; si buscas rendimiento y poder mejorar piezas, un PC de escritorio...', fecha: '2026-09-15', imagen: img('Blog 1') },
     { id: 2, titulo: 'Guía para armar tu setup', resumen: 'Monitor, teclado, mouse y audio: qué considerar.', contenido: 'Un buen monitor, periféricos cómodos y un audio de calidad hacen la diferencia...', fecha: '2026-10-05', imagen: img('Blog 2') },
   ],
+  mensajes: [],
 }
 
 function load() {
   try {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (data) return data
+    // Si se agregan colecciones nuevas a SEED, se suman a los datos ya guardados
+    if (data) return { ...structuredClone(SEED), ...data }
   } catch {
     // datos corruptos: se vuelve a la semilla
   }

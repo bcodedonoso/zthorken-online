@@ -33,6 +33,12 @@ describe('db', () => {
     expect(guardado.categorias.some((c) => c.nombre === 'Accesorios')).toBeTrue()
   })
 
+  it('agrega colecciones nuevas a datos guardados de antes', () => {
+    localStorage.setItem('zthorken-db', JSON.stringify({ productos: [] }))
+    expect(getAll('mensajes')).toEqual([])
+    expect(getAll('productos')).toEqual([])
+  })
+
   it('lanza error con una colección que no existe', () => {
     expect(() => getAll('noExiste')).toThrowError(/no existe/)
   })
