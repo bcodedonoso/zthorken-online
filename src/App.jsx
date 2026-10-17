@@ -12,6 +12,8 @@ import Dashboard from './pages/admin/Dashboard.jsx'
 import AdminProductos from './pages/admin/Productos.jsx'
 import ProductoForm from './pages/admin/ProductoForm.jsx'
 import ProductoDetalle from './pages/admin/ProductoDetalle.jsx'
+import AdminCategorias from './pages/admin/Categorias.jsx'
+import CategoriaForm from './pages/admin/CategoriaForm.jsx'
 
 function App() {
   return (
@@ -33,6 +35,9 @@ function App() {
         <Route path="productos/nuevo" element={<ProductoForm />} />
         <Route path="productos/:id" element={<ProductoDetalle />} />
         <Route path="productos/:id/editar" element={<ProductoForm />} />
+        <Route path="categorias" element={<AdminCategorias />} />
+        <Route path="categorias/nueva" element={<CategoriaForm />} />
+        <Route path="categorias/:id/editar" element={<CategoriaForm />} />
       </Route>
     </Routes>
   )
