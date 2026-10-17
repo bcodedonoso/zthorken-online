@@ -21,7 +21,7 @@ function AdminLayout() {
   return (
     <div className="container-fluid">
       <div className="row min-vh-100">
-        <aside className="col-md-3 col-lg-2 bg-dark text-white p-3">
+        <aside className="col-md-3 col-lg-2 bg-dark text-white p-3 d-print-none">
           <Link className="d-block fs-5 fw-bold text-white text-decoration-none" to="/admin">Zthorken Admin</Link>
           <p className="small text-white-50">{usuario.nombre} {usuario.apellidos}</p>
 

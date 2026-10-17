@@ -17,6 +17,19 @@ import Ofertas from './pages/Ofertas.jsx'
 import Checkout from './pages/Checkout.jsx'
 import PagoCorrecto from './pages/PagoCorrecto.jsx'
 import PagoError from './pages/PagoError.jsx'
+import Dashboard from './pages/admin/Dashboard.jsx'
+import AdminProductos from './pages/admin/Productos.jsx'
+import ProductoForm from './pages/admin/ProductoForm.jsx'
+import AdminProductoDetalle from './pages/admin/ProductoDetalle.jsx'
+import AdminCategorias from './pages/admin/Categorias.jsx'
+import CategoriaForm from './pages/admin/CategoriaForm.jsx'
+import AdminUsuarios from './pages/admin/Usuarios.jsx'
+import UsuarioForm from './pages/admin/UsuarioForm.jsx'
+import UsuarioDetalle from './pages/admin/UsuarioDetalle.jsx'
+import Ordenes from './pages/admin/Ordenes.jsx'
+import Boleta from './pages/admin/Boleta.jsx'
+import Reportes from './pages/admin/Reportes.jsx'
+import Perfil from './pages/admin/Perfil.jsx'
 
 function App() {
   return (
@@ -42,7 +55,25 @@ function App() {
         <Route path="/pago-error" element={<PagoError />} />
       </Route>
 
-      <Route path="/admin" element={<AdminLayout />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="productos" element={<AdminProductos />} />
+        <Route path="productos/criticos" element={<AdminProductos soloCriticos />} />
+        <Route path="productos/nuevo" element={<ProductoForm />} />
+        <Route path="productos/:id" element={<AdminProductoDetalle />} />
+        <Route path="productos/:id/editar" element={<ProductoForm />} />
+        <Route path="categorias" element={<AdminCategorias />} />
+        <Route path="categorias/nueva" element={<CategoriaForm />} />
+        <Route path="categorias/:id/editar" element={<CategoriaForm />} />
+        <Route path="usuarios" element={<AdminUsuarios />} />
+        <Route path="usuarios/nuevo" element={<UsuarioForm />} />
+        <Route path="usuarios/:id" element={<UsuarioDetalle />} />
+        <Route path="usuarios/:id/editar" element={<UsuarioForm />} />
+        <Route path="ordenes" element={<Ordenes />} />
+        <Route path="ordenes/:id" element={<Boleta />} />
+        <Route path="reportes" element={<Reportes />} />
+        <Route path="perfil" element={<Perfil />} />
+      </Route>
     </Routes>
   )
 }

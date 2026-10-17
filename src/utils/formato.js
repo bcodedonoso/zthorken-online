@@ -7,3 +7,8 @@ export function formatearFecha(fecha) {
     year: 'numeric',
   })
 }
+
+// 129970 -> '$129.970'
+export function formatearPrecio(valor) {
+  return `$${valor.toLocaleString('es-CL')}`
+}
