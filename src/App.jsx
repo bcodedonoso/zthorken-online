@@ -8,6 +8,7 @@ import Contacto from './pages/Contacto.jsx'
 import Blogs from './pages/Blogs.jsx'
 import BlogDetalle from './pages/BlogDetalle.jsx'
 import AdminLayout from './components/AdminLayout.jsx'
+import Dashboard from './pages/admin/Dashboard.jsx'
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
         <Route path="/blogs/:id" element={<BlogDetalle />} />
       </Route>
 
-      <Route path="/admin" element={<AdminLayout />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+      </Route>
     </Routes>
   )
 }
