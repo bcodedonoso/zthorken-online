@@ -19,6 +19,7 @@ import UsuarioForm from './pages/admin/UsuarioForm.jsx'
 import UsuarioDetalle from './pages/admin/UsuarioDetalle.jsx'
 import Ordenes from './pages/admin/Ordenes.jsx'
 import Boleta from './pages/admin/Boleta.jsx'
+import Reportes from './pages/admin/Reportes.jsx'
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         <Route path="usuarios/:id/editar" element={<UsuarioForm />} />
         <Route path="ordenes" element={<Ordenes />} />
         <Route path="ordenes/:id" element={<Boleta />} />
+        <Route path="reportes" element={<Reportes />} />
       </Route>
     </Routes>
   )
