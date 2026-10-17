@@ -9,6 +9,7 @@ import Blogs from './pages/Blogs.jsx'
 import BlogDetalle from './pages/BlogDetalle.jsx'
 import AdminLayout from './components/AdminLayout.jsx'
 import Dashboard from './pages/admin/Dashboard.jsx'
+import AdminProductos from './pages/admin/Productos.jsx'
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
 
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
+        <Route path="productos" element={<AdminProductos />} />
+        <Route path="productos/criticos" element={<AdminProductos soloCriticos />} />
       </Route>
     </Routes>
   )
