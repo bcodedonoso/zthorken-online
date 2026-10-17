@@ -39,7 +39,7 @@ function Carrusel({ slides, intervalo = 5000 }) {
       <div className="carousel-inner">
         {slides.map((s, i) => (
           <div className={`carousel-item ${i === actual ? 'active' : ''}`} key={s.titulo}>
-            <img src={s.imagen} className="d-block w-100 object-fit-cover" style={{ height: 380 }} alt="" />
+            <img src={s.imagen} className="d-block w-100 object-fit-cover" style={{ height: 380, filter: 'brightness(0.5)' }} alt="" />
             <div className="carousel-caption">
               <h2>{s.titulo}</h2>
               <p>{s.texto}</p>
