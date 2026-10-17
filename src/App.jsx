@@ -17,6 +17,8 @@ import CategoriaForm from './pages/admin/CategoriaForm.jsx'
 import AdminUsuarios from './pages/admin/Usuarios.jsx'
 import UsuarioForm from './pages/admin/UsuarioForm.jsx'
 import UsuarioDetalle from './pages/admin/UsuarioDetalle.jsx'
+import Ordenes from './pages/admin/Ordenes.jsx'
+import Boleta from './pages/admin/Boleta.jsx'
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
         <Route path="usuarios/nuevo" element={<UsuarioForm />} />
         <Route path="usuarios/:id" element={<UsuarioDetalle />} />
         <Route path="usuarios/:id/editar" element={<UsuarioForm />} />
+        <Route path="ordenes" element={<Ordenes />} />
+        <Route path="ordenes/:id" element={<Boleta />} />
       </Route>
     </Routes>
   )
