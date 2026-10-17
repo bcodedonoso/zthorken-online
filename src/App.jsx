@@ -30,19 +30,19 @@ function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:id" element={<BlogDetalle />} />
         
-        {/* antonio*/}
-        
-      <Route path="/productos" element={<Productos />} />
+        {/* Persona 2: catálogo y compra */}
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/productos/:id" element={<ProductoDetalle />} />
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/categorias/:id" element={<CategoriaDetalle />} />
+        <Route path="/ofertas" element={<Ofertas />} />
+        <Route path="/carrito" element={<Carrito />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/pago-exitoso/:id" element={<PagoCorrecto />} />
+        <Route path="/pago-error" element={<PagoError />} />
       </Route>
+
       <Route path="/admin" element={<AdminLayout />} />
-      <Route path="/productos/:id" element={<ProductoDetalle />} />
-      <Route path="/carrito" element={<Carrito />} />
-      <Route path="/categorias" element={<Categorias />} />
-      <Route path="/categorias/:id" element={<CategoriaDetalle />} />
-      <Route path="/ofertas" element={<Ofertas />} />
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/pago-exitoso/:id" element={<PagoCorrecto />} />
-      <Route path="/pago-error" element={<PagoError />} />
     </Routes>
   )
 }

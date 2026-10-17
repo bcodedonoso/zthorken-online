@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { getAll } from '../data/db.js'
 import ProductCard from '../components/ProductCard.jsx'
 
 export default function Productos() {
-  const [busqueda, setBusqueda] = useState('')
+  const [params] = useSearchParams()
+  const [busqueda, setBusqueda] = useState(params.get('buscar') ?? '')
   const [categoriaId, setCategoriaId] = useState('')
 
   const categorias = getAll('categorias')
@@ -15,6 +17,7 @@ export default function Productos() {
 
   return (
     <div className="container my-4">
+      <Link to="/" className="btn btn-link ps-0 mb-3">← Volver al inicio</Link>
       <h1 className="mb-4">Productos</h1>
 
       <div className="row g-2 mb-4">

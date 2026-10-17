@@ -6,7 +6,7 @@ export default function Categorias() {
 
   return (
     <div className="container my-4">
-        <Link to="/productos" className="btn btn-link ps-0 mb-3">← Ver todos los productos</Link>
+      <Link to="/productos" className="btn btn-link ps-0 mb-3">← Ver todos los productos</Link>
       <h1 className="mb-4">Categorías</h1>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
         {categorias.map((c) => (

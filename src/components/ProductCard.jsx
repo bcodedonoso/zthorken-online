@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+
 export const formatoCLP = (n) => '$' + Number(n).toLocaleString('es-CL')
 
 export default function ProductCard({ producto }) {
-  const { agregar } = useCart()
+  const { agregar, items } = useCart()
+  const enCarrito = items.find((i) => i.productoId === producto.id)?.cantidad ?? 0
   const enOferta = producto.precioOferta !== null && producto.precioOferta !== undefined
   const sinStock = producto.stock <= 0
+  const limiteAlcanzado = !sinStock && enCarrito >= producto.stock
 
   return (
     <div className="card h-100 shadow-sm">
@@ -38,10 +41,10 @@ export default function ProductCard({ producto }) {
           </Link>
           <button
             className="btn btn-primary btn-sm"
-            disabled={sinStock}
+            disabled={sinStock || limiteAlcanzado}
             onClick={() => agregar(producto)}
           >
-            {sinStock ? 'Sin stock' : 'Agregar al carrito'}
+            {sinStock ? 'Sin stock' : limiteAlcanzado ? 'Máximo en carrito' : 'Agregar al carrito'}
           </button>
         </div>
       </div>

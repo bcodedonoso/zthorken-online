@@ -1,14 +1,14 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
-import { SesionContext } from '../context/sesion.js'
+import { useSesion } from '../context/sesion.js'
 import { REGIONES } from '../data/regiones.js'
 import { validarCheckout, procesarPago } from '../utils/checkout.js'
 import { formatoCLP } from '../components/ProductCard.jsx'
 
 export default function Checkout() {
   const { items, total, limpiar } = useCart()
-  const { usuario } = useContext(SesionContext)
+  const { usuario } = useSesion()
   const navigate = useNavigate()
 
   // Si hay sesión, el formulario parte con los datos del usuario
@@ -53,7 +53,6 @@ export default function Checkout() {
   if (items.length === 0) {
   return (
     <div className="container my-4">
-      <Link to="/carrito" className="btn btn-link ps-0 mb-3">← Volver al carrito</Link>
       <h1 className="mb-4">Checkout</h1>
         <p className="text-muted">No tienes productos en el carrito.</p>
         <Link to="/productos" className="btn btn-primary">Ver productos</Link>
@@ -78,6 +77,7 @@ export default function Checkout() {
 
   return (
     <div className="container my-4">
+      <Link to="/carrito" className="btn btn-link ps-0 mb-3">← Volver al carrito</Link>
       <h1 className="mb-4">Checkout</h1>
       <div className="row g-4">
         <div className="col-lg-8">

@@ -27,3 +27,16 @@ describe('Productos', () => {
     expect(screen.getByText('No se encontraron productos.')).toBeTruthy()
   })
 })
+
+describe('Productos con búsqueda desde la navbar', () => {
+  it('aplica el texto de ?buscar= al filtro', () => {
+    render(
+      <MemoryRouter initialEntries={['/productos?buscar=zzzzz']}>
+        <CartProvider>
+          <Productos />
+        </CartProvider>
+      </MemoryRouter>
+    )
+    expect(screen.getByText('No se encontraron productos.')).toBeTruthy()
+  })
+})

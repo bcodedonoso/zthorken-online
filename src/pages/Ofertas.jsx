@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { getAll } from '../data/db.js'
 import ProductCard from '../components/ProductCard.jsx'
 
@@ -8,6 +9,7 @@ export default function Ofertas() {
 
   return (
     <div className="container my-4">
+      <Link to="/productos" className="btn btn-link ps-0 mb-3">← Ver todos los productos</Link>
       <h1 className="mb-4">Ofertas</h1>
       {productos.length === 0 ? (
         <p className="text-muted">No hay ofertas por ahora.</p>

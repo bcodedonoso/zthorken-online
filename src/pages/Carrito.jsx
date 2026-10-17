@@ -18,6 +18,7 @@ export default function Carrito() {
 
   return (
     <div className="container my-4">
+      <Link to="/productos" className="btn btn-link ps-0 mb-3">← Seguir comprando</Link>
       <h1 className="mb-4">Carrito</h1>
 
       <div className="table-responsive">
