@@ -76,4 +76,23 @@ describe('SesionProvider', () => {
     expect(respuesta).toEqual({ ok: false, error: 'Ya existe una cuenta con ese correo' })
     expect(getAll('usuarios').length).toBe(2)
   })
+
+  it('actualiza el perfil y refleja los cambios', () => {
+    const { result } = renderSesion()
+    act(() => { result.current.login('pedro@correo.cl', 'pedro123') })
+    let respuesta
+    act(() => { respuesta = result.current.actualizarPerfil({ nombre: 'Pedrito', correo: 'Pedrito@Correo.cl' }) })
+    expect(respuesta.ok).toBeTrue()
+    expect(result.current.usuario.nombre).toBe('Pedrito')
+    expect(result.current.usuario.correo).toBe('pedrito@correo.cl')
+  })
+
+  it('no permite cambiar el perfil a un correo de otra cuenta', () => {
+    const { result } = renderSesion()
+    act(() => { result.current.login('pedro@correo.cl', 'pedro123') })
+    let respuesta
+    act(() => { respuesta = result.current.actualizarPerfil({ correo: 'admin@zthorken.cl' }) })
+    expect(respuesta).toEqual({ ok: false, error: 'Ya existe una cuenta con ese correo' })
+    expect(result.current.usuario.correo).toBe('pedro@correo.cl')
+  })
 })
