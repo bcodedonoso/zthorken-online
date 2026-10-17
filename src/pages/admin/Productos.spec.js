@@ -64,4 +64,10 @@ describe('Admin Productos', () => {
     expect(screen.getByRole('link', { name: 'Ver SSD Kingston NV2 1 TB' }).getAttribute('href')).toBe('/admin/productos/12')
     expect(screen.getByRole('link', { name: 'Editar SSD Kingston NV2 1 TB' }).getAttribute('href')).toBe('/admin/productos/12/editar')
   })
+
+  it('muestra la imagen de cada producto', () => {
+    renderProductos()
+    const imagenes = screen.getAllByRole('row').slice(1).map((fila) => fila.querySelector('img').getAttribute('src'))
+    expect(imagenes).toEqual(getAll('productos').map((p) => p.imagen))
+  })
 })

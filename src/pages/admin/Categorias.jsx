@@ -46,7 +46,12 @@ function Categorias() {
               {categorias.map((c) => (
                 <tr key={c.id}>
                   <td>{c.id}</td>
-                  <td>{c.nombre}</td>
+                  <td>
+                    <div className="d-flex align-items-center gap-2">
+                      <img src={c.imagen} alt="" width="40" height="40" className="rounded object-fit-cover" />
+                      {c.nombre}
+                    </div>
+                  </td>
                   <td>{cantidad(c.id)}</td>
                   <td className="text-nowrap">
                     <Link className="btn btn-sm btn-outline-primary me-1" to={`/admin/categorias/${c.id}/editar`} aria-label={`Editar ${c.nombre}`}>

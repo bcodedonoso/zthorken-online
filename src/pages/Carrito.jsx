@@ -34,10 +34,16 @@ export default function Carrito() {
           </thead>
           <tbody>
             {items.map((i) => {
-              const stock = getById('productos', i.productoId)?.stock ?? Infinity
+              const producto = getById('productos', i.productoId)
+              const stock = producto?.stock ?? Infinity
               return (
                 <tr key={i.productoId}>
-                  <td>{i.nombre}</td>
+                  <td>
+                    <div className="d-flex align-items-center gap-2">
+                      <img src={producto?.imagen ?? i.imagen} alt="" width="56" height="56" className="rounded object-fit-cover" />
+                      {i.nombre}
+                    </div>
+                  </td>
                   <td>{formatoCLP(i.precio)}</td>
                   <td>
                     <div className="d-flex align-items-center gap-2">

@@ -93,6 +93,9 @@ function ProductoForm() {
                 onChange={cambiar}
               />
               {errores[c.name] && <div className="invalid-feedback">{errores[c.name]}</div>}
+              {c.name === 'imagen' && form.imagen.trim() && (
+                <img src={form.imagen.trim()} alt="Vista previa" className="d-block mt-2 rounded border object-fit-cover" style={{ height: 120 }} />
+              )}
             </div>
           ))}
 

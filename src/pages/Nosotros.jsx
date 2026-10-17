@@ -26,7 +26,7 @@ function Nosotros() {
           </p>
         </div>
         <div className="col-lg-6">
-          <img src="https://placehold.co/600x350?text=Zthorken" className="img-fluid rounded shadow-sm" alt="Equipo de Zthorken" />
+          <img src="/img/nosotros.jpg" className="img-fluid rounded shadow-sm" alt="Equipo de Zthorken" />
         </div>
       </section>
 

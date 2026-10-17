@@ -68,4 +68,9 @@ describe('CategoriaForm', () => {
     renderForm('/admin/categorias/999/editar')
     expect(screen.getByText('La categoría no existe.')).toBeTruthy()
   })
+
+  it('al editar muestra la vista previa de la imagen actual', () => {
+    renderForm('/admin/categorias/3/editar')
+    expect(screen.getByAltText('Vista previa').getAttribute('src')).toBe('/img/categorias/audio.jpg')
+  })
 })

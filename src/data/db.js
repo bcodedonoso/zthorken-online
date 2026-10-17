@@ -1,7 +1,8 @@
 // Base de datos simulada. Los datos se guardan en localStorage
 // y se inicializan con SEED la primera vez.
 
-const STORAGE_KEY = 'zthorken-db'
+// Se cambia la versión cuando cambian los datos iniciales, para que se vuelvan a cargar
+const STORAGE_KEY = 'zthorken-db-v2'
 
 // Imagen provisoria para productos y categorías nuevos sin foto
 export const img = (texto) => `https://placehold.co/400x300?text=${encodeURIComponent(texto)}`
