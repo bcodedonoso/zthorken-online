@@ -1,10 +1,15 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import { useEsAdmin } from '../context/sesion.js'
+import AvisoAdmin from './AvisoAdmin.jsx'
 
 export const formatoCLP = (n) => '$' + Number(n).toLocaleString('es-CL')
 
 export default function ProductCard({ producto }) {
   const { agregar, items } = useCart()
+  const esAdmin = useEsAdmin()
+  const [avisoAbierto, setAvisoAbierto] = useState(false)
   const enCarrito = items.find((i) => i.productoId === producto.id)?.cantidad ?? 0
   const enOferta = producto.precioOferta !== null && producto.precioOferta !== undefined
   const sinStock = producto.stock <= 0
@@ -42,12 +47,13 @@ export default function ProductCard({ producto }) {
           <button
             className="btn btn-primary btn-sm"
             disabled={sinStock || limiteAlcanzado}
-            onClick={() => agregar(producto)}
+            onClick={() => (esAdmin ? setAvisoAbierto(true) : agregar(producto))}
           >
             {sinStock ? 'Sin stock' : limiteAlcanzado ? 'Máximo en carrito' : 'Agregar al carrito'}
           </button>
         </div>
       </div>
+      <AvisoAdmin abierto={avisoAbierto} onCerrar={() => setAvisoAbierto(false)} />
     </div>
   )
 }

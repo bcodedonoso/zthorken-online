@@ -12,10 +12,10 @@ const PEDRO = {
   region: 'Región Metropolitana de Santiago', comuna: 'Cerrillos',
 }
 
-const montar = (usuario = null) =>
+const montar = (usuario = null, actualizarPerfil = undefined) =>
   render(
     <MemoryRouter initialEntries={['/checkout']}>
-      <SesionContext.Provider value={{ usuario }}>
+      <SesionContext.Provider value={{ usuario, actualizarPerfil }}>
         <CartProvider>
           <Routes>
             <Route path="/checkout" element={<Checkout />} />
@@ -71,5 +71,40 @@ it('muestra errores si se paga con el formulario vacío', () => {
     fireEvent.click(screen.getByText(/^Pagar/))
     expect(screen.getByText('Pago con error')).toBeTruthy()
     expect(JSON.parse(localStorage.getItem('zthorken_carrito')).length).toBe(1)
+  })
+
+  it('no ofrece guardar los datos si el usuario no cambió nada', () => {
+    montar(PEDRO)
+    expect(screen.queryByLabelText(/Guardar estos datos/)).toBeNull()
+  })
+
+  it('invita a iniciar sesión o registrarse si no hay sesión', () => {
+    montar()
+    expect(screen.getByText('Inicia sesión')).toBeTruthy()
+    expect(screen.queryByLabelText(/Guardar estos datos/)).toBeNull()
+  })
+
+  it('si la cuenta no tiene dirección, ofrece guardar con la casilla marcada y guarda al pagar', () => {
+    const NUEVO = { ...PEDRO, id: 3, calle: '', departamento: '', region: '', comuna: '' }
+    const actualizarPerfil = jasmine.createSpy('actualizarPerfil')
+    montar(NUEVO, actualizarPerfil)
+    fireEvent.change(screen.getByLabelText('Calle y número'), { target: { name: 'calle', value: 'Av. Siempre Viva 742' } })
+    fireEvent.change(screen.getByLabelText('Región'), { target: { name: 'region', value: 'Región Metropolitana de Santiago' } })
+    fireEvent.change(screen.getByLabelText('Comuna'), { target: { name: 'comuna', value: 'Cerrillos' } })
+    expect(screen.getByLabelText(/Guardar estos datos/).checked).toBeTrue()
+    fireEvent.click(screen.getByText(/^Pagar/))
+    expect(actualizarPerfil).toHaveBeenCalledWith(jasmine.objectContaining({ calle: 'Av. Siempre Viva 742', comuna: 'Cerrillos' }))
+  })
+
+  it('no guarda los datos si se desmarca la casilla', () => {
+    const NUEVO = { ...PEDRO, id: 3, calle: '', departamento: '', region: '', comuna: '' }
+    const actualizarPerfil = jasmine.createSpy('actualizarPerfil')
+    montar(NUEVO, actualizarPerfil)
+    fireEvent.change(screen.getByLabelText('Calle y número'), { target: { name: 'calle', value: 'Av. Siempre Viva 742' } })
+    fireEvent.change(screen.getByLabelText('Región'), { target: { name: 'region', value: 'Región Metropolitana de Santiago' } })
+    fireEvent.change(screen.getByLabelText('Comuna'), { target: { name: 'comuna', value: 'Cerrillos' } })
+    fireEvent.click(screen.getByLabelText(/Guardar estos datos/))
+    fireEvent.click(screen.getByText(/^Pagar/))
+    expect(actualizarPerfil).not.toHaveBeenCalled()
   })
 })

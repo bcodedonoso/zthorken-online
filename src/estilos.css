@@ -163,3 +163,31 @@ body {
   border-top: 1px solid var(--zt-azul-claro);
   color: #8fa3b8;
 }
+
+/* Campos de formulario más visibles (borde y fondo) */
+.form-control,
+.form-select {
+  background-color: #f4f6f9;
+  border: 1.5px solid #8a96a3;
+}
+.form-control:hover,
+.form-select:hover {
+  border-color: #5f6b78;
+}
+.form-control:focus,
+.form-select:focus {
+  background-color: #fff;
+  border-color: var(--zt-acento);
+  box-shadow: 0 0 0 0.25rem rgba(249, 115, 22, 0.25);
+}
+.form-control::placeholder {
+  color: #7b8794;
+}
+.form-check-input {
+  border: 1.5px solid #5f6b78;
+}
+/* Mantiene el rojo de Bootstrap cuando el campo tiene error */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc3545;
+}

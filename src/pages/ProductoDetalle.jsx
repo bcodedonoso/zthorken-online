@@ -2,13 +2,17 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getById } from '../data/db.js'
 import { useCart } from '../context/CartContext.jsx'
+import { useEsAdmin } from '../context/sesion.js'
+import AvisoAdmin from '../components/AvisoAdmin.jsx'
 import { formatoCLP } from '../components/ProductCard.jsx'
 
 export default function ProductoDetalle() {
   const { id } = useParams()
   const { agregar } = useCart()
+  const esAdmin = useEsAdmin()
   const [cantidad, setCantidad] = useState(1)
   const [agregado, setAgregado] = useState(false)
+  const [avisoAbierto, setAvisoAbierto] = useState(false)
 
   const producto = getById('productos', id)
 
@@ -25,6 +29,10 @@ export default function ProductoDetalle() {
   const sinStock = producto.stock <= 0
 
   const handleAgregar = () => {
+    if (esAdmin) {
+      setAvisoAbierto(true)
+      return
+    }
     agregar(producto, cantidad)
     setAgregado(true)
   }
@@ -78,6 +86,7 @@ export default function ProductoDetalle() {
           )}
         </div>
       </div>
+      <AvisoAdmin abierto={avisoAbierto} onCerrar={() => setAvisoAbierto(false)} />
     </div>
   )
 }

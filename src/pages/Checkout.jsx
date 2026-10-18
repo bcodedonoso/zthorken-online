@@ -5,10 +5,11 @@ import { useSesion } from '../context/sesion.js'
 import { REGIONES } from '../data/regiones.js'
 import { validarCheckout, procesarPago } from '../utils/checkout.js'
 import { formatoCLP } from '../components/ProductCard.jsx'
+import AvisoAdmin from '../components/AvisoAdmin.jsx'
 
 export default function Checkout() {
   const { items, total, limpiar } = useCart()
-  const { usuario } = useSesion()
+  const { usuario, actualizarPerfil } = useSesion()
   const navigate = useNavigate()
 
   // Si hay sesión, el formulario parte con los datos del usuario
@@ -23,12 +24,27 @@ export default function Checkout() {
     indicaciones: '',
   }))
   const [errores, setErrores] = useState({})
+  const [avisoAbierto, setAvisoAbierto] = useState(false)
+  const esAdmin = usuario?.rol === 'admin'
+
+  // Un usuario con sesión puede guardar estos datos en su cuenta.
+  // Se ofrece solo si lo que escribió es distinto de lo que ya tiene guardado.
+  const CAMPOS_PERFIL = ['nombre', 'apellidos', 'calle', 'departamento', 'region', 'comuna']
+  const hayCambios = !!usuario && CAMPOS_PERFIL.some((c) => datos[c] !== (usuario[c] ?? ''))
+  const sinDireccionGuardada = !!usuario && !usuario.calle
+  const [guardarDatos, setGuardarDatos] = useState(null)
+  // Si la cuenta no tiene dirección, la casilla parte marcada
+  const quiereGuardar = guardarDatos ?? sinDireccionGuardada
 
   const cambiar = (e) => setDatos({ ...datos, [e.target.name]: e.target.value })
   const cambiarRegion = (e) => setDatos({ ...datos, region: e.target.value, comuna: '' })
 
   const pagar = (e) => {
     e.preventDefault()
+    if (esAdmin) {
+      setAvisoAbierto(true)
+      return
+    }
     const nuevos = validarCheckout(datos)
     setErrores(nuevos)
     if (Object.keys(nuevos).length > 0) return
@@ -46,14 +62,17 @@ export default function Checkout() {
       navigate('/pago-error', { state: { mensaje: resultado.error } })
       return
     }
+    if (hayCambios && quiereGuardar && actualizarPerfil) {
+      actualizarPerfil({ nombre, apellidos, calle, departamento, region, comuna })
+    }
     limpiar()
     navigate(`/pago-exitoso/${resultado.orden.id}`)
   }
 
   if (items.length === 0) {
-  return (
-    <div className="container my-4">
-      <h1 className="mb-4">Checkout</h1>
+    return (
+      <div className="container my-4">
+        <h1 className="mb-4">Checkout</h1>
         <p className="text-muted">No tienes productos en el carrito.</p>
         <Link to="/productos" className="btn btn-primary">Ver productos</Link>
       </div>
@@ -142,6 +161,28 @@ export default function Checkout() {
               </div>
             </div>
 
+            {hayCambios && (
+              <div className="form-check mb-3">
+                <input
+                  id="guardarDatos"
+                  type="checkbox"
+                  className="form-check-input"
+                  checked={quiereGuardar}
+                  onChange={(e) => setGuardarDatos(e.target.checked)}
+                />
+                <label htmlFor="guardarDatos" className="form-check-label">
+                  Guardar estos datos en mi cuenta para próximas compras
+                </label>
+              </div>
+            )}
+
+            {!usuario && (
+              <p className="text-muted small">
+                <Link to="/login">Inicia sesión</Link> o <Link to="/registro">crea una cuenta</Link> para
+                guardar tus datos y no volver a escribirlos.
+              </p>
+            )}
+
             <button type="submit" className="btn btn-success btn-lg">
               Pagar {formatoCLP(total)}
             </button>
@@ -168,6 +209,7 @@ export default function Checkout() {
           </div>
         </div>
       </div>
+      <AvisoAdmin abierto={avisoAbierto} onCerrar={() => setAvisoAbierto(false)} />
     </div>
   )
 }

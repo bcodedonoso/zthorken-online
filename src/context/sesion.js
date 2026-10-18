@@ -8,3 +8,8 @@ export function useSesion() {
   if (!sesion) throw new Error('useSesion debe usarse dentro de <SesionProvider>')
   return sesion
 }
+
+// Devuelve true si la sesión es de un administrador (false si no hay sesión o proveedor)
+export function useEsAdmin() {
+  return useContext(SesionContext)?.usuario?.rol === 'admin'
+}
