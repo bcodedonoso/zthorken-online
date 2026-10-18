@@ -47,7 +47,12 @@ function Productos({ soloCriticos = false }) {
               {lista.map((p) => (
                 <tr key={p.id}>
                   <td>{p.id}</td>
-                  <td>{p.nombre}</td>
+                  <td>
+                    <div className="d-flex align-items-center gap-2">
+                      <img src={p.imagen} alt="" width="40" height="40" className="rounded object-fit-cover" />
+                      {p.nombre}
+                    </div>
+                  </td>
                   <td>{categorias.find((c) => c.id === p.categoriaId)?.nombre ?? '—'}</td>
                   <td>{formatearPrecio(p.precio)}</td>
                   <td>{p.precioOferta ? formatearPrecio(p.precioOferta) : '—'}</td>

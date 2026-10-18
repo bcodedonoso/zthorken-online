@@ -20,7 +20,10 @@ export default function CategoriaDetalle() {
   return (
     <div className="container my-4">
       <Link to="/categorias" className="btn btn-link ps-0 mb-3">← Volver a categorías</Link>
-      <h1 className="mb-4">{categoria.nombre}</h1>
+      <div className="position-relative mb-4">
+        <img src={categoria.imagen} alt="" className="w-100 rounded object-fit-cover" style={{ height: 200, filter: 'brightness(0.5)' }} />
+        <h1 className="position-absolute bottom-0 start-0 m-0 p-4 text-white">{categoria.nombre}</h1>
+      </div>
       {productos.length === 0 ? (
         <p className="text-muted">No hay productos en esta categoría.</p>
       ) : (

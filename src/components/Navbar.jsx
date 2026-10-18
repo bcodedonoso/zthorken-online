@@ -12,6 +12,23 @@ const enlaces = [
   { to: '/contacto', texto: 'Contacto' },
 ]
 
+// Íconos de línea (decorativos, el texto va en el botón o enlace)
+const iconoBuscar = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+  </svg>
+)
+const iconoUsuario = (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
+  </svg>
+)
+const iconoCarrito = (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <circle cx="9" cy="20" r="1.5" /><circle cx="18" cy="20" r="1.5" /><path d="M3 4h2l2.5 11h11L21 8H6.5" />
+  </svg>
+)
+
 function Navbar({ totalCarrito = 0 }) {
   const [busqueda, setBusqueda] = useState('')
   const navigate = useNavigate()
@@ -29,11 +46,28 @@ function Navbar({ totalCarrito = 0 }) {
     navigate(texto ? `/productos?buscar=${encodeURIComponent(texto)}` : '/productos')
   }
 
+  const enlace = (e) => (
+    <li className="nav-item" key={e.to}>
+      <NavLink className="nav-link" to={e.to} end>{e.texto}</NavLink>
+    </li>
+  )
+
   return (
-    <header className="bg-light border-bottom sticky-top">
-      <nav className="navbar navbar-expand-xl">
-        <div className="container">
-          <Link className="navbar-brand fw-bold" to="/">Zthorken</Link>
+    <header className="zt-header sticky-top">
+      <nav className="navbar navbar-expand-xl" data-bs-theme="dark">
+        <div className="container-fluid px-3 px-xl-4">
+          <Link className="navbar-brand zt-logo" to="/">
+            ZTHORKEN<span className="zt-punto" aria-hidden="true"></span>
+          </Link>
+
+          {/* Fuera del menú colapsable para que se vea siempre; en escritorio queda al final */}
+          <Link
+            className="zt-carrito ms-auto me-2 me-xl-0 ms-xl-3 order-xl-last"
+            to="/carrito"
+            aria-label={`Carrito $${totalCarrito.toLocaleString('es-CL')}`}
+          >
+            {iconoCarrito}${totalCarrito.toLocaleString('es-CL')}
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -47,75 +81,62 @@ function Navbar({ totalCarrito = 0 }) {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse flex-column align-items-stretch" id="menuPrincipal">
-            <div className="d-flex flex-column flex-xl-row align-items-xl-center gap-2 py-2">
-              <form className="d-flex mx-xl-auto w-100" style={{ maxWidth: 480 }} role="search" onSubmit={buscar}>
+          <div className="collapse navbar-collapse" id="menuPrincipal">
+            <ul className="navbar-nav me-auto">
+              {enlaces.slice(0, 2).map(enlace)}
+
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorías
+                </a>
+                <ul className="dropdown-menu">
+                  {categorias.map((c) => (
+                    <li key={c.id}>
+                      <Link className="dropdown-item" to={`/categorias/${c.id}`}>{c.nombre}</Link>
+                    </li>
+                  ))}
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to="/categorias">Ver todas</Link></li>
+                </ul>
+              </li>
+
+              {enlaces.slice(2).map(enlace)}
+            </ul>
+
+            <div className="d-flex flex-column flex-xl-row align-items-xl-center gap-2 gap-xl-3 py-3 py-xl-0">
+              <form className="zt-buscador" role="search" onSubmit={buscar}>
+                <button className="zt-buscador-boton" type="submit" aria-label="Buscar">{iconoBuscar}</button>
                 <input
-                  className="form-control me-2"
                   type="search"
-                  placeholder="Buscar productos"
+                  placeholder="Buscar"
                   aria-label="Buscar productos"
                   value={busqueda}
                   onChange={(e) => setBusqueda(e.target.value)}
                 />
-                <button className="btn btn-outline-success" type="submit">Buscar</button>
               </form>
 
-              {usuario ? (
-                <div className="d-flex align-items-center gap-2">
-                  <span className="navbar-text text-nowrap">Hola, {usuario.nombre}</span>
-                  {esAdmin && <Link className="btn btn-outline-dark text-nowrap" to="/admin">Admin</Link>}
-                  <button className="btn btn-outline-danger text-nowrap" type="button" onClick={cerrarSesion}>
-                    Cerrar sesión
-                  </button>
-                </div>
-              ) : (
-                <div className="d-flex gap-2">
-                  <Link className="btn btn-outline-primary text-nowrap" to="/login">Iniciar sesión</Link>
-                  <Link className="btn btn-primary text-nowrap" to="/registro">Crear cuenta</Link>
-                </div>
-              )}
-            </div>
-
-            <div className="d-flex flex-column flex-xl-row align-items-xl-center justify-content-center gap-xl-3 pb-2">
-              <ul className="navbar-nav">
-                {enlaces.slice(0, 2).map((e) => (
-                  <li className="nav-item" key={e.to}>
-                    <NavLink className="nav-link" to={e.to} end>{e.texto}</NavLink>
-                  </li>
-                ))}
-  
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Categorías
-                  </a>
-                  <ul className="dropdown-menu">
-                    {categorias.map((c) => (
-                      <li key={c.id}>
-                        <Link className="dropdown-item" to={`/categorias/${c.id}`}>{c.nombre}</Link>
+              <div className="dropdown">
+                <button className="zt-cuenta dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {iconoUsuario}
+                  <span className="text-nowrap">{usuario ? `Hola, ${usuario.nombre}` : 'Mi cuenta'}</span>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-xl-end">
+                  {usuario ? (
+                    <>
+                      {esAdmin && <li><Link className="dropdown-item" to="/admin">Admin</Link></li>}
+                      <li>
+                        <button className="dropdown-item" type="button" onClick={cerrarSesion}>Cerrar sesión</button>
                       </li>
-                    ))}
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><Link className="dropdown-item" to="/categorias">Ver todas</Link></li>
-                  </ul>
-                </li>
-  
-                {enlaces.slice(2).map((e) => (
-                  <li className="nav-item" key={e.to}>
-                    <NavLink className="nav-link" to={e.to}>{e.texto}</NavLink>
-                  </li>
-                ))}
-              </ul>
-  
-              <Link className="btn btn-success text-nowrap align-self-start align-self-xl-center" to="/carrito">
-                Carrito ${totalCarrito.toLocaleString('es-CL')}
-              </Link>
+                    </>
+                  ) : (
+                    <>
+                      <li><Link className="dropdown-item" to="/login">Iniciar sesión</Link></li>
+                      <li><Link className="dropdown-item" to="/registro">Crear cuenta</Link></li>
+                    </>
+                  )}
+                </ul>
+              </div>
+
             </div>
           </div>
         </div>

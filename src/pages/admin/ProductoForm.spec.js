@@ -109,4 +109,11 @@ describe('ProductoForm', () => {
     renderForm('/admin/productos/999/editar')
     expect(screen.getByText('El producto no existe.')).toBeTruthy()
   })
+
+  it('muestra la vista previa de la imagen', () => {
+    renderForm()
+    expect(screen.queryByAltText('Vista previa')).toBeNull()
+    escribir('URL de la imagen (opcional)', 'https://ejemplo.cl/foto.jpg')
+    expect(screen.getByAltText('Vista previa').getAttribute('src')).toBe('https://ejemplo.cl/foto.jpg')
+  })
 })

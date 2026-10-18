@@ -2,10 +2,13 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Carrusel from './Carrusel.jsx'
 
+// Imagen vacía de 1x1 para que el navegador no busque archivos que no existen
+const IMAGEN = 'data:image/gif;base64,R0lGODlhAQABAAAAACw='
+
 const slides = [
-  { titulo: 'Uno', texto: 'Primera', imagen: 'uno.png', enlace: '/uno', boton: 'Ir a uno' },
-  { titulo: 'Dos', texto: 'Segunda', imagen: 'dos.png' },
-  { titulo: 'Tres', texto: 'Tercera', imagen: 'tres.png' },
+  { titulo: 'Uno', texto: 'Primera', imagen: IMAGEN, enlace: '/uno', boton: 'Ir a uno' },
+  { titulo: 'Dos', texto: 'Segunda', imagen: IMAGEN },
+  { titulo: 'Tres', texto: 'Tercera', imagen: IMAGEN },
 ]
 
 function renderCarrusel(props) {

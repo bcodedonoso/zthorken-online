@@ -66,6 +66,9 @@ function CategoriaForm() {
         <div className="mb-3">
           <label htmlFor="imagen" className="form-label">URL de la imagen (opcional)</label>
           <input id="imagen" name="imagen" type="url" className="form-control" value={form.imagen} onChange={cambiar} />
+          {form.imagen.trim() && (
+            <img src={form.imagen.trim()} alt="Vista previa" className="d-block mt-2 rounded border object-fit-cover" style={{ height: 120 }} />
+          )}
         </div>
 
         <div className="d-flex gap-2 mt-4">

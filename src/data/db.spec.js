@@ -29,12 +29,12 @@ describe('db', () => {
 
   it('persiste en localStorage', () => {
     create('categorias', { nombre: 'Accesorios' })
-    const guardado = JSON.parse(localStorage.getItem('zthorken-db'))
+    const guardado = JSON.parse(localStorage.getItem('zthorken-db-v2'))
     expect(guardado.categorias.some((c) => c.nombre === 'Accesorios')).toBeTrue()
   })
 
   it('agrega colecciones nuevas a datos guardados de antes', () => {
-    localStorage.setItem('zthorken-db', JSON.stringify({ productos: [] }))
+    localStorage.setItem('zthorken-db-v2', JSON.stringify({ productos: [] }))
     expect(getAll('mensajes')).toEqual([])
     expect(getAll('productos')).toEqual([])
   })

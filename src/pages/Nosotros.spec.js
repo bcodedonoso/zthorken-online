@@ -11,4 +11,9 @@ describe('Nosotros', () => {
       expect(screen.getByRole('heading', { name: valor })).toBeTruthy()
     }
   })
+
+  it('muestra la foto del equipo', () => {
+    render(<Nosotros />)
+    expect(screen.getByAltText('Equipo de Zthorken').getAttribute('src')).toBe('/img/nosotros.jpg')
+  })
 })
