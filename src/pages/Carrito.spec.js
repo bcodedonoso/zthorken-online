@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { CartProvider } from '../context/CartContext.jsx'
 import Carrito from './Carrito.jsx'
 
-const ITEM = { productoId: 1, nombre: 'PC Gamer Ryzen 5 RTX 4060', precio: 899990, imagen: '', cantidad: 1 }
+const ITEM = { productoId: 1, nombre: 'PC Gamer Ryzen 5 RTX 4060', precio: 899990, imagen: '/img/productos/audifonos-hyperx.jpg', cantidad: 1 }
 
 const montar = () =>
   render(

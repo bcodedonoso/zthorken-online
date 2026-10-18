@@ -30,6 +30,7 @@ import Ordenes from './pages/admin/Ordenes.jsx'
 import Boleta from './pages/admin/Boleta.jsx'
 import Reportes from './pages/admin/Reportes.jsx'
 import Perfil from './pages/admin/Perfil.jsx'
+import NoEncontrada from './pages/NoEncontrada.jsx'
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/pago-exitoso/:id" element={<PagoCorrecto />} />
         <Route path="/pago-error" element={<PagoError />} />
+        <Route path="*" element={<NoEncontrada />} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>

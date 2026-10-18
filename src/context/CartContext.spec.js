@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react'
 import { CartProvider, useCart } from './CartContext.jsx'
 
 const wrapper = ({ children }) => createElement(CartProvider, null, children)
-const producto = { id: 1, nombre: 'Mouse', precio: 10000, precioOferta: null, imagen: '' }
+const producto = { id: 1, nombre: 'Mouse', precio: 10000, precioOferta: null, imagen: '/img/productos/audifonos-hyperx.jpg' }
 
 describe('CartContext', () => {
   beforeEach(() => localStorage.clear())

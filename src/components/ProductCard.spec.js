@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { CartProvider } from '../context/CartContext.jsx'
 import ProductCard from './ProductCard.jsx'
 
-const base = { id: 1, nombre: 'Mouse Gamer', precio: 20000, precioOferta: null, stock: 5, imagen: '' }
+const base = { id: 1, nombre: 'Mouse Gamer', precio: 20000, precioOferta: null, stock: 5, imagen: '/img/productos/audifonos-hyperx.jpg' }
 
 const montar = (producto) =>
   render(
